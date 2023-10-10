@@ -1,20 +1,41 @@
 import { useState,useEffect } from 'react'
 import './App.css'
-import { featchDataFormApi } from './utils/api'
+import { useDispatch, useSelector } from 'react-redux'
+import { getApiConfiguration } from './store/homeslice'
+import Footer from './components/footer/footer'
+import Header from './components/header/header'
+import PageNotFound from './pages/404/pageNotFound'
+import Details from './pages/details/details'
+import Home from './pages/home/Home'
+import SearchResult from './pages/searchResult/SearchResult'
+import Explore from './pages/explore/Explore'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
+
+
+
+
 
 function App() {
-  const apitesting=()=>{
-    featchDataFormApi('/movie/popular').then((e)=>{
-      console.log(e)
-    })
-  }
-   useEffect(()=>{
-    apitesting()
-   },[])
+  
+  
+   
+  
+   
   return (
-    <>
-      <div style={{color:'white'}}>hi</div>
-    </>
+    <BrowserRouter>
+    {/* <Header></Header> */}
+    <Routes>
+      <Route path='/' element={<Home></Home>}></Route>
+      <Route path='/:mediaType/:id' element={<Details></Details>}></Route>
+      <Route path='/search/:query' element={<SearchResult></SearchResult>}></Route>
+      <Route path='/explore/:mediaType' element={<Explore></Explore>}></Route>
+      <Route path='*' element={<PageNotFound></PageNotFound>}></Route>
+
+    
+    </Routes>
+    <Footer></Footer>
+    </BrowserRouter>
   )
 }
 

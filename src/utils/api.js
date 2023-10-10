@@ -7,7 +7,7 @@ const headers = {
   Authorization: "Bearer " + TMDB_TOKEN,
 };
 
-export const featchDataFormApi = async (url, params) => {
+export const fetchDataFromApi = async (url, params) => {
   try {
     const { data } = await axios.get(BASE_URL + url, { headers, params });
     return data;
