@@ -2,18 +2,24 @@ import React, { useEffect, useState } from 'react'
 import './style.scss'
 import { useNavigate } from 'react-router-dom'
 import useFetch from '../../../hooks/useFetch'
+import { useSelector } from 'react-redux'
+import Img from '../../../components/lazyloadimage/img'
+import ContentWrapper from '../../../components/contentWrapper/ContentWrapper'
 
 
 const HeroBanner = () => {
   const [background, setBackground]=useState('')
   const [query,setQuery]=useState('')
   const navigate=useNavigate()
-   const {data,loding}=useFetch('/movie/upcoming')
+   const {data,loading}=useFetch('/movie/upcoming')
+   const {url}=useSelector((state)=>state.home)
+  
+
 
 
   useEffect(()=>{
     // 
-    const bg=data?.results?.[(Math.floor(Math.random()*20))]?.backdrop_path
+    const bg= url.backdrop + data?.results?.[(Math.floor(Math.random()*20))]?.backdrop_path
     console.log(bg)
   setBackground(bg)
   },[data])
@@ -26,7 +32,12 @@ const HeroBanner = () => {
 
   return (
     <div className='heroBanner'>
-      <div className="wrapper">
+      {!loading && <div className="backdrop-img">
+        <Img src={`${background}`}></Img>
+      </div>}
+      <div className="opacity-layer"></div>
+      <ContentWrapper>
+      
         <div className="heroBannerContent">
           <span className="title">Welcome.</span>
           <span className="subTittle">
@@ -45,7 +56,7 @@ const HeroBanner = () => {
             <button>Search</button>
           </div>
         </div>
-      </div>
+        </ContentWrapper>
       
     </div>
   )

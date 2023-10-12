@@ -10,6 +10,7 @@ import Home from './pages/home/Home'
 import SearchResult from './pages/searchResult/SearchResult'
 import Explore from './pages/explore/Explore'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { fetchDataFromApi } from './utils/api'
 
 
 
@@ -17,14 +18,30 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 
 function App() {
-  
+  const dispatch =useDispatch()
+
+  useEffect(()=>{
+    fetchApiConfig()
+  },[])
+
+  const fetchApiConfig=()=>{
+      fetchDataFromApi('/configuration').then((res)=>{
+        const url ={
+          backdrop:res.images.secure_base_url +'original', 
+          poster:res.images.secure_base_url +'original', 
+          profile:res.images.secure_base_url +'original', 
+
+        }
+             dispatch(getApiConfiguration(url))
+      })
+  }
   
    
   
    
   return (
     <BrowserRouter>
-    {/* <Header></Header> */}
+    <Header></Header>
     <Routes>
       <Route path='/' element={<Home></Home>}></Route>
       <Route path='/:mediaType/:id' element={<Details></Details>}></Route>
