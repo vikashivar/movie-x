@@ -2,6 +2,8 @@ import React from 'react'
 import HeroBanner from './heroBanner/heroBanner'
 import "./style.scss";
 import Trending from './trending/Trending';
+import Popular from './popular/Popular';
+import TopRated from './topRated/TopRated';
 
 const Home = () => {
   return (
@@ -9,7 +11,9 @@ const Home = () => {
     
      <HeroBanner></HeroBanner>
      <Trending></Trending>
-     <div style={{height:'1000px'}}></div>
+     <Popular></Popular>
+     <TopRated></TopRated>
+     
 
     </div>
   )
